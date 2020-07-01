@@ -16,12 +16,12 @@ integer [0-9]+
 {integer} { yylval.ival=atoi(yytext);
  return NUMBER;
 }
-.   {errorMsg(); return *yytext;}
 "=" {return EQUAL;}
 "+" {return PLUS;}
 "-" {return MINUS;}
 "*" {return TIMES;}
 "/" {return DIVIDE;}
+.   {errorMsg(); return *yytext;}
 %%
 
 void errorMsg(){
