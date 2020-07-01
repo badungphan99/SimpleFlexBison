@@ -4,7 +4,6 @@
 #include <string.h>
 
 int yylex();
-int yyerror(char *s);
 int checkVar(char *s);
 char var[20];
 int value;
@@ -30,7 +29,7 @@ Input:
 ;
 
 Line:
-	Declaration Expression { printf("Result: %d\n", value); exit(0); }
+	Declaration Expression { printf("%d\n",value); exit(0); }
 ;
 
 Declaration:
@@ -45,10 +44,6 @@ Expression:
 ;
 
 %%
-
-int yyerror(char *s) {
-	fprintf(stderr, "%s\n", s);
-}
 
 int checkVar(char *s){
 	if (strcmp(s, var)) {
