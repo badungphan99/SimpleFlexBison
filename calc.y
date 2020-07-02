@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+void yyerror (char const *s);
 int yylex();
 int checkVar(char *s);
 char var[20];
@@ -51,6 +52,11 @@ int checkVar(char *s){
 		exit(1);
             };
 }
+
+void yyerror (char const *s) {
+	fprintf (stderr, "%s\n", s);
+}
+
 
 int main() {
   if (yyparse())
