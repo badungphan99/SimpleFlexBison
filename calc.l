@@ -2,7 +2,6 @@
 #include "calc.tab.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define YY_DECL int yylex()
 %}
 
 whitespace [ \t]+
@@ -21,9 +20,5 @@ integer [0-9]+
 "-" {return MINUS;}
 "*" {return TIMES;}
 "/" {return DIVIDE;}
-"."   {errorMsg(); return *yytext;}
+"." {printf("Cannot understand character .\n"); exit(1);}
 %%
-
-int errorMsg(){
-    printf("Cannot understand character .\n");
-}
