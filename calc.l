@@ -21,9 +21,9 @@ integer [0-9]+
 "-" {return MINUS;}
 "*" {return TIMES;}
 "/" {return DIVIDE;}
-.   {errorMsg(); return *yytext;}
+"."   {errorMsg(); return *yytext;}
 %%
 
-void errorMsg(){
+int errorMsg(){
     printf("Cannot understand character .\n");
 }
