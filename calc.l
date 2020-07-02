@@ -12,8 +12,8 @@ integer [0-9]+
 %%
 
 {whitespace}
-{variable} {sscanf(yytext, "%s", yylval.iden); return(VAR);}
-{integer} { yylval.ival=atoi(yytext);
+{variable} {sscanf(yytext, "%s", yylval.varName); return(VAR);}
+{integer} { yylval.val=atoi(yytext);
  return NUMBER;
 }
 "=" {return EQUAL;}

@@ -11,16 +11,16 @@ int value;
 %}
 
 %union {
-    char iden[20];
-    int ival;
+    char varName[20];
+    int val;
 }
 
 %token NUMBER
 %token VAR
 %token EQUAL PLUS MINUS TIMES DIVIDE
 
-%type<ival> NUMBER Declaration Expression
-%type<iden> VAR
+%type<val> NUMBER Declaration Expression
+%type<varName> VAR
 
 %start Input
 %%
