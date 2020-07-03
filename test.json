@@ -3,17 +3,11 @@
   "sigma": ["0", "1"],
   "start": "A",
   "final": ["C", "D", "E"],
-  "transition": [
-    {"state-b": "A", "sigma": "0", "state-e":  "B"},
-    {"state-b": "A", "sigma": "1", "state-e":  "C"},
-    {"state-b": "B", "sigma": "0", "state-e":  "A"},
-    {"state-b": "B", "sigma": "1", "state-e":  "D"},
-    {"state-b": "C", "sigma": "0", "state-e":  "E"},
-    {"state-b": "C", "sigma": "1", "state-e":  "F"},
-    {"state-b": "D", "sigma": "0", "state-e":  "E"},
-    {"state-b": "D", "sigma": "1", "state-e":  "F"},
-    {"state-b": "E", "sigma": "0", "state-e":  "E"},
-    {"state-b": "E", "sigma": "1", "state-e":  "F"},
-    {"state-b": "F", "sigma": "0", "state-e":  "F"},
-    {"state-b": "F", "sigma": "1", "state-e":  "F"}]
+  "transition": {
+    "A": {"0": ["B"], "1": ["C"]},
+    "B": {"0": ["A"], "1": ["D"]},
+    "C": {"0": ["E"], "1": ["F"]},
+    "D": {"0": ["E"], "1": ["F"]},
+    "E": {"0": ["E"], "1": ["F"]},
+    "F": {"0": ["F"], "1": ["F"]}}
 }
