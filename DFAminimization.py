@@ -2,14 +2,22 @@ import json
 
 class DFA:
     def __init__(self, states, sigma, start_state, final_state, transition):
-        self.states = states
+        self.states = sorted(states)
         self.sigma = sigma
         self.start_state = start_state
         self.final_state = final_state
         self.transition = transition
         self.empty = "-"
 
+        print("------------", "Otomat nhap vao", "------------")
         self.print_otomat()
+        self.mDFA()
+        print("------------", "Otomat ket qua" , "------------")
+        self.print_otomat()
+
+    def listToString(self, s):
+        str1 = "_"
+        return (str1.join(s))
 
     def print_otomat(self):
         print("Tap trang thai : ", self.states)
@@ -24,14 +32,118 @@ class DFA:
         for state in self.states:
             print('{:^10}'.format(state), end="|")
             for s in sigma:
-                string = "-"
-                # print(self.transition[state][s])
                 if s not in self.transition[state]:
                     print('{:^10}'.format(self.empty), end="|")
                 else:
-                    string = ','.join(self.transition[state][s])
-                print('{:^10}'.format(string), end="|")
+                    print('{:^10}'.format(self.transition[state][s]), end="|")
             print("")
+            
+    def mDFA(self):
+
+        table = {}
+        for i,r in enumerate(self.states):
+            table[r] = {}
+            for c in self.states[:i]:
+                if (r in self.final_state) != (c in self.final_state):
+                    table[r][c] = 1
+                else:
+                    table[r][c] = 0
+
+        # print("A", table["A"])
+        # print("B", table["B"])
+        # print("C", table["C"])
+        # print("D", table["D"])
+        # print("E", table["E"])
+        # print("F", table["F"])
+        # print("--------------")
+        
+        flag = True
+        while flag:
+            flag = False
+            for i, r in enumerate(self.states):
+                for c in self.states[:i]:
+                    if table[r][c] == 1:
+                        continue
+                    for s in self.sigma:
+                        tmp_r = self.transition[r][s]
+                        tmp_c = self.transition[c][s]
+                        if tmp_c != tmp_r and table[tmp_r] and table[tmp_r][tmp_c] and table[tmp_r][tmp_c] == 1:
+                            table[r][c] = 1
+                            flag = True
+
+        # print("A", table["A"])
+        # print("B", table["B"])
+        # print("C", table["C"])
+        # print("D", table["D"])
+        # print("E", table["E"])
+        # print("F", table["F"])
+        
+        new_states = list(self.states)
+        index = {}
+
+        for i in new_states:
+            index[i] = 0
+
+        for i, r in enumerate(self.states):
+            for c in self.states[:i]:
+                if table[r][c] == 0:
+                    if index[r] == 0 and index[c] == 0:
+                        new_states.append(sorted([r,c]))
+                        index[r]=i
+                        index[c]=i
+                        new_states.remove(r)
+                        new_states.remove(c)
+                    elif index[r] != 0 and index[c] == 0:
+                        print(r, c)
+                        tmp = []
+                        for tmpi in index:
+                            if index[tmpi] == index[r]:
+                                tmp.append(tmpi)
+                        new_states.remove(c)
+                        new_states.remove(sorted(tmp))
+                        tmp.append(c)
+                        new_states.append(sorted(tmp))
+                        for t in tmp:
+                            index[t] = i
+                    elif index[r] == 0 and index[c] != 0:
+                        tmp = []
+                        for tmpi in index:
+                            if index[tmpi] == index[c]:
+                                tmp.append(tmpi)
+                        new_states.remove(r)
+                        new_states.remove(sorted(tmp))
+                        tmp.append(r)
+                        new_states.append(sorted(tmp))
+                        for t in tmp:
+                            index[t] = i
+
+        new_transition = {}
+        for ns in new_states:
+            for s in self.sigma:
+                nss = self.listToString(ns)
+                if nss not in new_transition:
+                    new_transition[nss] = {}
+                tmp_state = self.transition[ns[0]][s]
+                for tmp_ns in new_states:
+                    if tmp_state in tmp_ns:
+                        new_transition[nss][s] = self.listToString(tmp_ns)
+                        break
+        new_final = []
+        new_states_str = []
+
+        for ns in new_states:
+            state = self.listToString(ns)
+            new_states_str.append(state)
+            for s in ns:
+                if s == self.start_state:
+                    self.start_state = state
+                if s in self.final_state and state not in new_final:
+                    new_final.append(state)
+
+        self.states = new_states_str
+        self.final_state = new_final
+        self.transition = new_transition
+
 
 
             
