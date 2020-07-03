@@ -6,6 +6,7 @@
 void yyerror (char const *s);
 int yylex();
 int checkVar(char *s);
+int checkDiv(int num);
 char var[20];
 int value;
 %}
@@ -18,6 +19,7 @@ int value;
 %token NUMBER
 %token VAR
 %token EQUAL PLUS MINUS TIMES DIVIDE
+%token NEWLINE
 
 %type<val> NUMBER Declaration Expression
 %type<varName> VAR
@@ -34,21 +36,27 @@ Line:
 ;
 
 Declaration:
-	VAR EQUAL NUMBER {sscanf($1, "%s", var); value = $3;}
+	VAR EQUAL NUMBER NEWLINE {sscanf($1, "%s", var); value = $3;}
 ;
 
 Expression:
 	VAR PLUS NUMBER { checkVar($1); value=value+$3; }
 	| VAR MINUS NUMBER { checkVar($1); value=value-$3; }
 	| VAR TIMES NUMBER { checkVar($1); value=value*$3; }
-	| VAR DIVIDE NUMBER { checkVar($1); value=value/$3; }
+	| VAR DIVIDE NUMBER { checkVar($1);checkDiv($3); value=value/$3; }
 ;
 
 %%
+int checkDiv(int num){
+	if (!num){
+		printf("Can not divide by zero\n");
+		exit(1);
+	}
+}
 
 int checkVar(char *s){
 	if (strcmp(s, var)) {
-		printf("Variable \"%s\" is not declared", s);
+		printf("Variable \"%s\" is not declared\n", s);
 		exit(1);
             };
 }
