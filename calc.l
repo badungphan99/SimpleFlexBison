@@ -21,5 +21,5 @@ integer [0-9]+
 "-" {return MINUS;}
 "*" {return TIMES;}
 "/" {return DIVIDE;}
-"." {printf("Cannot understand character .\n"); exit(1);}
+. {printf("Cannot understand character .\n"); exit(1);}
 %%
