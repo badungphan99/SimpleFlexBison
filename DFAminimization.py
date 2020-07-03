@@ -1,5 +1,6 @@
 import json
 
+
 class DFA:
     def __init__(self, states, sigma, start_state, final_state, transition):
         self.states = sorted(states)
@@ -14,7 +15,7 @@ class DFA:
         self.print_otomat()
         self.fill()
         self.mDFA()
-        print("------------", "Otomat ket qua" , "------------")
+        print("------------", "Otomat ket qua", "------------")
         self.print_otomat()
 
     def listToString(self, s):
@@ -39,11 +40,11 @@ class DFA:
                 else:
                     print('{:^10}'.format(self.transition[state][s]), end="|")
             print("")
-            
+
     def mDFA(self):
 
         table = {}
-        for i,r in enumerate(self.states):
+        for i, r in enumerate(self.states):
             table[r] = {}
             for c in self.states[:i]:
                 if (r in self.final_state) != (c in self.final_state):
@@ -58,7 +59,7 @@ class DFA:
         # print("E", table["E"])
         # print("F", table["F"])
         # print("--------------")
-        
+
         flag = True
         while flag:
             flag = False
@@ -72,7 +73,7 @@ class DFA:
                         if tmp_c != tmp_r and table[tmp_r] and table[tmp_r][tmp_c] and table[tmp_r][tmp_c] == 1:
                             table[r][c] = 1
                             flag = True
-        
+
         new_states = list(self.states)
         index = {}
 
@@ -83,9 +84,9 @@ class DFA:
             for c in self.states[:i]:
                 if table[r][c] == 0:
                     if index[r] == 0 and index[c] == 0:
-                        new_states.append(sorted([r,c]))
-                        index[r]=i
-                        index[c]=i
+                        new_states.append(sorted([r, c]))
+                        index[r] = i
+                        index[c] = i
                         new_states.remove(r)
                         new_states.remove(c)
                     elif index[r] != 0 and index[c] == 0:
@@ -155,7 +156,6 @@ class DFA:
             for s in self.sigma:
                 self.transition[self.add_state][s] = self.add_state
 
-            
 
 if __name__ == "__main__":
     with open("test.json", "r") as json_file:
@@ -163,39 +163,20 @@ if __name__ == "__main__":
 
     states = []
     sigma = []
-    start_state =[]
+    start_state = []
     final_state = []
     transition = []
 
-    if data["states"]:
-        states = data["states"]
-    else:
-        print("ERROR: Khong tim thay tap trang thai")
-        exit(1)
-    
-    if data["sigma"]:
-        sigma = data["sigma"]
-    else:
-        print("ERROR: Khong tim thay bang chu cai")
-        exit(1)
-    
-    if data["start"]:
-        start_state = data["start"]
-    else:
-        print("ERROR: Khong tim thay trang thai bat dau")
-        exit(1)
-        
-    if data["final"]:
-        final_state = data["final"]
-    else:
-        print("ERROR: Khong tim thay tap trang thai ket thuc")
-        exit(1)
-        
-    if data["transition"]:
-        transition = data["transition"]
-    else:
-        print("ERROR: Khong tim thay ham chuyen")
-        exit(1)
+    assert data["states"], "ERROR: Khong tim thay tap trang thai"
+    assert data["sigma"], "ERROR: Khong tim thay bang chu cai"
+    assert data["start"], "ERROR: Khong tim thay bang chu cai"
+    assert data["final"], "ERROR: Khong tim thay tap trang thai ket thuc"
+    assert data["transition"], "ERROR: Khong tim thay ham chuyen"
 
-        
+    states = data["states"]
+    sigma = data["sigma"]
+    start_state = data["start"]
+    final_state = data["final"]
+    transition = data["transition"]
+
     DFA(states, sigma, start_state, final_state, transition)
