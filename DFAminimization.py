@@ -7,10 +7,12 @@ class DFA:
         self.start_state = start_state
         self.final_state = final_state
         self.transition = transition
+        self.add_state = "aS"
         self.empty = "-"
 
         print("------------", "Otomat nhap vao", "------------")
         self.print_otomat()
+        self.fill()
         self.mDFA()
         print("------------", "Otomat ket qua" , "------------")
         self.print_otomat()
@@ -70,13 +72,6 @@ class DFA:
                         if tmp_c != tmp_r and table[tmp_r] and table[tmp_r][tmp_c] and table[tmp_r][tmp_c] == 1:
                             table[r][c] = 1
                             flag = True
-
-        # print("A", table["A"])
-        # print("B", table["B"])
-        # print("C", table["C"])
-        # print("D", table["D"])
-        # print("E", table["E"])
-        # print("F", table["F"])
         
         new_states = list(self.states)
         index = {}
@@ -144,7 +139,21 @@ class DFA:
         self.final_state = new_final
         self.transition = new_transition
 
-
+    def fill(self):
+        flag = False
+        for state in self.states:
+            if not state in self.transition:
+                flag = True
+                self.transition[state] = {}
+            for s in self.sigma:
+                if not s in self.transition[state]:
+                    flag = True
+                    self.transition[state][s] = self.add_state
+        if flag:
+            self.states.append(self.add_state)
+            self.transition[self.add_state] = {}
+            for s in self.sigma:
+                self.transition[self.add_state][s] = self.add_state
 
             
 
