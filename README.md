@@ -1,8 +1,8 @@
-#DFA Minimization and Simple Flex Bison
+# DFA Minimization and Simple Flex Bison
 
-##DFA Minimization
+## DFA Minimization
 
-##Simple Flex Bison
+## Simple Flex Bison
 
 1. Prerequirement
 ```
