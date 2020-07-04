@@ -34,7 +34,7 @@ class DFA:
         print("")
         for state in self.states:
             print('{:^10}'.format(state), end="|")
-            for s in sigma:
+            for s in self.sigma:
                 if s not in self.transition[state]:
                     print('{:^10}'.format(self.empty), end="|")
                 else:
