@@ -28,7 +28,7 @@ class DFA:
         print("Trang thai khoi dau : ", self.start_state)
         print("Tap trang thai ket : ", self.final_state)
 
-        print('{:^10}'.format("δ"), end="|")
+        print('{:^10}'.format(" "), end="|")
         for s in self.sigma:
             print('{:^10}'.format(s), end="|")
         print("")

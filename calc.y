@@ -5,8 +5,8 @@
 
 void yyerror (char const *s);
 int yylex();
-int checkVar(char *s);
-int checkDiv(int num);
+void checkVar(char *s);
+void checkDiv(int num);
 char var[20];
 int value;
 %}
@@ -47,14 +47,14 @@ Expression:
 ;
 
 %%
-int checkDiv(int num){
+void checkDiv(int num){
 	if (!num){
 		printf("Can not divide by zero\n");
 		exit(1);
 	}
 }
 
-int checkVar(char *s){
+void checkVar(char *s){
 	if (strcmp(s, var)) {
 		printf("Variable \"%s\" is not declared\n", s);
 		exit(1);
