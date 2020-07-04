@@ -11,18 +11,30 @@ class DFA:
         self.add_state = "aS"
         self.empty = "-"
 
+        self.checkCondition()
         print("------------", "Otomat nhap vao", "------------")
-        self.print_otomat()
+        self.printOtomat()
         self.fill()
         self.mDFA()
         print("------------", "Otomat ket qua", "------------")
-        self.print_otomat()
+        self.printOtomat()
+
+    def checkCondition(self):
+        assert self.start_state in self.states, "ERROR: Trang thai bat dau khong nam trong tap trang thai"
+        for f in self.final_state:
+            assert f in self.states, "ERROR: Trang thai ket khong nam trong tap trang thai"
+
+        for state in self.transition:
+            assert state in self.states, "ERROR: Trang thai trong ham chuyen khong nam trong tap trang thai"
+            for s in self.transition[state]:
+                assert s in self.sigma, "ERROR: Chu cai trong ham chuyen khong nam trong tap trang thai"
+                assert self.transition[state][s] in self.states, "ERROR: Trang thai trong ham chuyen khong nam trong tap trang thai"
 
     def listToString(self, s):
         str1 = "_"
         return (str1.join(s))
 
-    def print_otomat(self):
+    def printOtomat(self):
         print("Tap trang thai : ", self.states)
         print("Bang chu cai : ", self.sigma)
         print("Trang thai khoi dau : ", self.start_state)
