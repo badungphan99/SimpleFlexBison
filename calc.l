@@ -6,7 +6,7 @@
 %}
 newline [\n]
 whitespace [ \t]+
-variable [_a-zA-Z][_a-zA-Z0-9]+
+variable [_a-zA-Z][_a-zA-Z0-9]*
 integer [0-9]+
 
 %%
