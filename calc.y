@@ -42,10 +42,10 @@ Declaration:
 ;
 
 Expression:
-	VAR PLUS NUMBER NEWLINE { checkVar($1); value=value+$3; }
-	| VAR MINUS NUMBER NEWLINE { checkVar($1); value=value-$3; }
-	| VAR TIMES NUMBER NEWLINE { checkVar($1); value=value*$3; }
-	| VAR DIVIDE NUMBER NEWLINE { checkVar($1);checkDiv($3); value=value/$3; }
+	VAR PLUS NUMBER { checkVar($1); value=value+$3; }
+	| VAR MINUS NUMBER { checkVar($1); value=value-$3; }
+	| VAR TIMES NUMBER { checkVar($1); value=value*$3; }
+	| VAR DIVIDE NUMBER { checkVar($1);checkDiv($3); value=value/$3; }
 ;
 
 %%
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	if (argc == 2){
 		FILE *file = fopen(argv[1], "r");
 		if(!file){
-			fprintf(stderr, "Can not read file.\n");
+			fprintf(stderr, "Can not read file %s\n", argv[1]);
 			exit(1);
 		}else{
 			yyin = file;
