@@ -30,10 +30,6 @@ int value;
 %%
 
 Input:
-	| Input Line
-;
-
-Line:
 	Declaration Expression { printf("%d\n",value); exit(0); }
 ;
 
