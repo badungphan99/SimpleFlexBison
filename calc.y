@@ -7,12 +7,12 @@ void yyerror (char const *s);
 int yylex();
 void checkVar(char *s);
 void checkDiv(int num);
-char var[20];
+char var[1000];
 int value;
 %}
 
 %union {
-    char varName[20];
+    char varName[1000];
     int val;
 }
 
@@ -40,10 +40,10 @@ Declaration:
 ;
 
 Expression:
-	VAR PLUS NUMBER { checkVar($1); value=value+$3; }
-	| VAR MINUS NUMBER { checkVar($1); value=value-$3; }
-	| VAR TIMES NUMBER { checkVar($1); value=value*$3; }
-	| VAR DIVIDE NUMBER { checkVar($1);checkDiv($3); value=value/$3; }
+	VAR PLUS NUMBER NEWLINE { checkVar($1); value=value+$3; }
+	| VAR MINUS NUMBER NEWLINE { checkVar($1); value=value-$3; }
+	| VAR TIMES NUMBER NEWLINE { checkVar($1); value=value*$3; }
+	| VAR DIVIDE NUMBER NEWLINE { checkVar($1);checkDiv($3); value=value/$3; }
 ;
 
 %%
