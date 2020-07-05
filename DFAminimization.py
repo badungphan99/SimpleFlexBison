@@ -82,7 +82,7 @@ class DFA:
                     for s in self.sigma:
                         tmp_r = self.transition[r][s]
                         tmp_c = self.transition[c][s]
-                        if tmp_c != tmp_r and table[tmp_r] and table[tmp_r][tmp_c] and table[tmp_r][tmp_c] == 1:
+                        if tmp_c != tmp_r and tmp_r in table and tmp_c in table[tmp_r] and table[tmp_r][tmp_c] == 1:
                             table[r][c] = 1
                             flag = True
 
