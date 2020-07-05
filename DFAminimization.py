@@ -14,7 +14,7 @@ class DFA:
         self.checkCondition()
         print("------------", "Otomat nhap vao", "------------")
         self.printOtomat()
-        self.fill()
+        # self.fill()
         self.mDFA()
         print("------------", "Otomat ket qua", "------------")
         self.printOtomat()
@@ -64,11 +64,11 @@ class DFA:
                 else:
                     table[r][c] = 0
 
-        # print("A", table["A"])
-        # print("B", table["B"])
-        # print("C", table["C"])
-        # print("D", table["D"])
-        # print("E", table["E"])
+        print("A", table["A"])
+        print("B", table["B"])
+        print("C", table["C"])
+        print("D", table["D"])
+        print("E", table["E"])
         # print("F", table["F"])
         # print("--------------")
 
@@ -83,6 +83,9 @@ class DFA:
                         tmp_r = self.transition[r][s]
                         tmp_c = self.transition[c][s]
                         if tmp_c != tmp_r and tmp_r in table and tmp_c in table[tmp_r] and table[tmp_r][tmp_c] == 1:
+                            table[r][c] = 1
+                            flag = True
+                        if tmp_c != tmp_r and tmp_c in table and tmp_r in table[tmp_c] and table[tmp_c][tmp_r] == 1:
                             table[r][c] = 1
                             flag = True
 
@@ -102,7 +105,6 @@ class DFA:
                         new_states.remove(r)
                         new_states.remove(c)
                     elif index[r] != 0 and index[c] == 0:
-                        print(r, c)
                         tmp = []
                         for tmpi in index:
                             if index[tmpi] == index[r]:
