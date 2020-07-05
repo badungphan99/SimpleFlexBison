@@ -7,7 +7,7 @@
 newline [\n]
 whitespace [ \t]+
 variable [_a-zA-Z][_a-zA-Z0-9]*
-integer [0-9]+
+integer 0|[1-9][0-9]*
 
 %%
 {newline} {return NEWLINE;}

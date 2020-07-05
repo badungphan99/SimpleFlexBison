@@ -9,6 +9,8 @@ void yyerror (char const *s);
 int yylex();
 void checkVar(char *s);
 void checkDiv(int num);
+float divvvv(int num);
+
 char var[1000];
 int value;
 %}
@@ -41,10 +43,15 @@ Expression:
 	VAR PLUS NUMBER { checkVar($1); value=value+$3; }
 	| VAR MINUS NUMBER { checkVar($1); value=value-$3; }
 	| VAR TIMES NUMBER { checkVar($1); value=value*$3; }
-	| VAR DIVIDE NUMBER { checkVar($1);checkDiv($3); value=value/$3; }
+	| VAR DIVIDE NUMBER { checkVar($1);checkDiv($3); divvvv($3); }
 ;
 
 %%
+float divvvv(int num){
+	printf("%f\n",value*(1.0)/(num*1.0));
+	exit(0);
+}
+
 void checkDiv(int num){
 	if (!num){
 		printf("Can not divide by zero\n");
